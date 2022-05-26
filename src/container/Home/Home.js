@@ -108,7 +108,7 @@ function Home(props) {
                             <div className="swiper-slide">
                                 <div className="testimonial-wrap">
                                     <div className="testimonial-item">
-                                        <img src="%PUBLIC_URL%/assets/img/testimonials/testimonials-1.jpg" className="testimonial-img" alt />
+                                        <img src="assets/img/testimonials/testimonials-1.jpg" className="testimonial-img" alt />
                                         <h3>Jacob Wilsson</h3>
                                         <h4>Writer</h4>
                                         <p>
@@ -125,7 +125,7 @@ function Home(props) {
                             <div className="swiper-slide">
                                 <div className="testimonial-wrap">
                                     <div className="testimonial-item">
-                                        <img src="%PUBLIC_URL%/assets/img/testimonials/testimonials-2.jpg" className="testimonial-img" alt />
+                                        <img src="assets/img/testimonials/testimonials-2.jpg" className="testimonial-img" alt />
                                         <h3>Ava Smith</h3>
                                         <h4>Artist</h4>
                                         <p>
@@ -141,7 +141,7 @@ function Home(props) {
                             <div className="swiper-slide">
                                 <div className="testimonial-wrap">
                                     <div className="testimonial-item">
-                                        <img src="%PUBLIC_URL%/assets/img/testimonials/testimonials-3.jpg" className="testimonial-img" alt />
+                                        <img src="assets/img/testimonials/testimonials-3.jpg" className="testimonial-img" alt />
                                         <h3>Abigail Martin</h3>
                                         <h4>Teacher</h4>
                                         <p>
@@ -158,7 +158,7 @@ function Home(props) {
                             <div className="swiper-slide">
                                 <div className="testimonial-wrap">
                                     <div className="testimonial-item">
-                                        <img src="%PUBLIC_URL%/assets/img/testimonials/testimonials-4.jpg" className="testimonial-img" alt />
+                                        <img src="assets/img/testimonials/testimonials-4.jpg" className="testimonial-img" alt />
                                         <h3>Alexander Tremblay</h3>
                                         <h4>Designer</h4>
                                         <p>
@@ -174,7 +174,7 @@ function Home(props) {
                             <div className="swiper-slide">
                                 <div className="testimonial-wrap">
                                     <div className="testimonial-item">
-                                        <img src="%PUBLIC_URL%/assets/img/testimonials/testimonials-5.jpg" className="testimonial-img" alt />
+                                        <img src="assets/img/testimonials/testimonials-5.jpg" className="testimonial-img" alt />
                                         <h3>Jayden Brown</h3>
                                         <h4>Entrepreneur</h4>
                                         <p>

@@ -14,7 +14,7 @@ function Doctors(props) {
                     <div className="row">
                         <div className="col-lg-6">
                             <div className="member d-flex align-items-start">
-                                <div className="pic"><img src="%PUBLIC_URL%/assets/img/doctors/doctors-1.jpg" className="img-doctor" alt /></div>
+                                <div className="pic"><img src="../assets/img/doctors/doctors-1.jpg" className="img-doctor" alt /></div>
                                 <div className="member-info">
                                     <h4>Atha Smith</h4>
                                     <span>Chief Medical Officer</span>
@@ -30,7 +30,7 @@ function Doctors(props) {
                         </div>
                         <div className="col-lg-6 mt-4 mt-lg-0">
                             <div className="member d-flex align-items-start">
-                                <div className="pic"><img src="%PUBLIC_URL%/assets/img/doctors/doctors-2.jpg" className="img-doctor" alt /></div>
+                                <div className="pic"><img src="../assets/img/doctors/doctors-2.jpg" className="img-doctor" alt /></div>
                                 <div className="member-info">
                                     <h4>John White</h4>
                                     <span>Anesthesiologist</span>
@@ -46,7 +46,7 @@ function Doctors(props) {
                         </div>
                         <div className="col-lg-6 mt-4">
                             <div className="member d-flex align-items-start">
-                                <div className="pic"><img src="%PUBLIC_URL%/assets/img/doctors/doctors-3.jpg" className="img-doctor" alt /></div>
+                                <div className="pic"><img src="../assets/img/doctors/doctors-3.jpg" className="img-doctor" alt /></div>
                                 <div className="member-info">
                                     <h4>Umika Loha</h4>
                                     <span>Cardiology</span>
@@ -62,7 +62,7 @@ function Doctors(props) {
                         </div>
                         <div className="col-lg-6 mt-4">
                             <div className="member d-flex align-items-start">
-                                <div className="pic"><img src="%PUBLIC_URL%/assets/img/doctors/doctors-4.jpg" className="img-doctor" alt /></div>
+                                <div className="pic"><img src="../assets/img/doctors/doctors-4.jpg" className="img-doctor" alt /></div>
                                 <div className="member-info">
                                     <h4>Daimy Smith</h4>
                                     <span>Neurosurgeon</span>
