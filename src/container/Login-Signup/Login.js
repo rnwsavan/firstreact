@@ -4,7 +4,7 @@ import { Formik, Form, useFormik } from 'formik';
 
 
 function Login(props) {
-    // const [userType, setUserType] = useState('login')
+  // const [userType, setUserType] = useState('login')
   const [userType, setUserType] = useState('login')
 
   const login = {
