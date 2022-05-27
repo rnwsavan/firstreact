@@ -15,13 +15,13 @@ function App() {
     <>
       <Header/>
       <switch>
-        <Route exact path={"/"} componet={Home}/>
-        <Route exact path={"/appointment"} componet={appo}/>
-        <Route exact path={"/contact"} componet={Contact}/>
-        <Route exact path={"/department"} componet={department}/>
-        <Route exact path={"/about"} componet={About}/>
-        <Route exact path={"/doctors"} componet={Doctors}/>
-      </switch>
+      <Route exact path={"/"} component={Home}/>
+      <Route exact path={"/about"} component={About}/>
+      <Route exact path={"/contact"} component={Contact}/>
+      <Route exact path={"/doctor"} component={Doctors}/>
+      <Route exact path={"/depatment"} component={department}/>
+      <Route exact path={"/apponmemt"} component={appo}/>
+    </switch>
       <Footer/>
     </>
   );
