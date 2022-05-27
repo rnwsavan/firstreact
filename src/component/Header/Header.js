@@ -30,7 +30,7 @@ function Header(props) {
                         <ul>
                             <li>
                                 {/* <a className="nav-link scrollto active" href="index.html">Home</a> */}
-                                <NavLink exact className="nav-link scrollto active" to={"/"}>Home</NavLink>
+                                <NavLink exact className="nav-link scrollto" to={"/"}>Home</NavLink>
                                 </li>
                             <li>
                                 {/* <a className="nav-link scrollto" href="./pages/departments.html">Departments</a> */}
@@ -48,14 +48,18 @@ function Header(props) {
                                 {/* <a className="nav-link scrollto" href="./pages/contact.html">Contact</a> */}
                                 <NavLink exact className="nav-link scrollto" to={"/contact"}>Contact</NavLink>
                             </li>
+                            
                         </ul>
                         <i className="bi bi-list mobile-nav-toggle" />
                     </nav>
                     <a href="./pages/appointment.html" className="appointment-btn scrollto"><span className="d-none d-md-inline">Make an</span>
                         Appointment</a>
-                    <a href="#" className="appointment-btn scrollto">
+                    {/* <a href="#" className="appointment-btn scrollto">
                         <span className="d-none d-md-inline">Login/ Signup</span>
-                    </a>
+                    </a> */}
+                    <NavLink to={"/Login"}  className="appointment-btn scrollto">
+      <span className="d-none d-md-inline">Login/ Signup</span>
+      </NavLink>
                 </div>
             </header>
         </div>
