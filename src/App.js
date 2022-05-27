@@ -10,6 +10,7 @@ import department from './container/Home/department';
 import About from './container/Home/About';
 import Doctors from './container/Home/Doctors';
 import Login from './container/Login-Signup/Login';
+import Form_1 from './container/Forms/Form_1';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
       <Route exact path={"/depatment"} component={department}/>
       <Route exact path={"/apponmemt"} component={appo}/>
       <Route exact path={"/Login"} component={Login}/>
+      <Route exact path={"/Form-1"} component={Form_1}/>
     </switch>
       <Footer/>
     </>

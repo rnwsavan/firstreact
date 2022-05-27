@@ -31,11 +31,11 @@ function Header(props) {
                             <li>
                                 {/* <a className="nav-link scrollto active" href="index.html">Home</a> */}
                                 <NavLink exact className="nav-link scrollto" to={"/"}>Home</NavLink>
-                                </li>
+                            </li>
                             <li>
                                 {/* <a className="nav-link scrollto" href="./pages/departments.html">Departments</a> */}
                                 <NavLink exact className="nav-link scrollto" to={"/depatment"}>Departments</NavLink>
-                                </li>
+                            </li>
                             <li>
                                 {/* <a className="nav-link scrollto" href="./pages/doctors.html">Doctors</a> */}
                                 <NavLink exact className="nav-link scrollto" to={"/doctor"}>Doctors</NavLink>
@@ -48,7 +48,7 @@ function Header(props) {
                                 {/* <a className="nav-link scrollto" href="./pages/contact.html">Contact</a> */}
                                 <NavLink exact className="nav-link scrollto" to={"/contact"}>Contact</NavLink>
                             </li>
-                            
+
                         </ul>
                         <i className="bi bi-list mobile-nav-toggle" />
                     </nav>
@@ -57,8 +57,11 @@ function Header(props) {
                     {/* <a href="#" className="appointment-btn scrollto">
                         <span className="d-none d-md-inline">Login/ Signup</span>
                     </a> */}
-                    <NavLink to={"/Login"}  className="appointment-btn scrollto">
-      <span className="d-none d-md-inline">Login/ Signup</span>
+                    <NavLink to={"/Login"} className="appointment-btn scrollto">
+                        <span className="d-none d-md-inline">Login/ Signup</span>
+                    </NavLink>
+                    <NavLink to={"/Form-1"}  className="appointment-btn scrollto">
+      <span className="d-none d-md-inline">Form Of Doctor</span>
       </NavLink>
                 </div>
             </header>
