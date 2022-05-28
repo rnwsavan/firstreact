@@ -24,7 +24,7 @@ function App() {
       <Route exact path={"/depatment"} component={department}/>
       <Route exact path={"/apponmemt"} component={appo}/>
       <Route exact path={"/Login"} component={Login}/>
-      <Route exact path={"/Form-1"} component={Form_1}/>
+      <Route exact path={"/Form"} component={Form_1}/>
     </switch>
       <Footer/>
     </>
