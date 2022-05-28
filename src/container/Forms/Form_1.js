@@ -7,7 +7,7 @@ function Form_1(props) {
     const [userform, setuserform] = useState("Form_1");
 
     let Form_1 = {
-        name: yup.string().required("please enter your name"),
+        name: yup.string().required("please enter doctorform name"),
         email: yup.string().email("please enter valid email").required("please enter email"),
         degress: yup.string().required("please enter your degress"),
     }
