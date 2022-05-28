@@ -81,14 +81,12 @@ function Medicine(props) {
 
     // console.log(data.map((i) => { return i }));
 
-    let med = orgData.filter((f) => { return f.expiry >= 2022 });
-
-    let ans = med.reduce((acc, d, i) => acc + d.price, 0);
+    let ans = orgData.reduce((acc, d, i) => acc + d.price, 0);
 
     return (
         <>
             <h4 className='text-center'>Medicine</h4>
-            <table border = "1">
+            <table border = "1" key={orgData}>
                 <tr>
                     <th>ID</th>
                     <th>Name</th>
@@ -107,7 +105,7 @@ function Medicine(props) {
                                     <td>{orgData.quantity}</td>
                                     <td>{orgData.price}</td>
                                     <td>{orgData.expiry}</td>
-                                    {index === 4 ? <td rowspan={orgData.length = "5"} > {ans} </td> : null}
+                                    {index === 4 ? <td rowSpan={orgData.length = "5"} > {ans} </td> : null}
                                 </tr>
                             )
                         })
