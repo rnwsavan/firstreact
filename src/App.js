@@ -11,11 +11,12 @@ import About from './container/Home/About';
 import Doctors from './container/Home/Doctors';
 import Login from './container/Login-Signup/Login';
 import Form_1 from './container/Forms/Form_1';
+import Medicine from './component/Medicine/Medicine';
 
 function App() {
   return (
     <>
-      <Header/>
+      {/* <Header/>
       <switch>
       <Route exact path={"/"} component={Home}/>
       <Route exact path={"/about"} component={About}/>
@@ -26,7 +27,8 @@ function App() {
       <Route exact path={"/Login"} component={Login}/>
       <Route exact path={"/Form-1"} component={Form_1}/>
     </switch>
-      <Footer/>
+      <Footer/> */}
+      <Medicine/>
     </>
   );
 }
