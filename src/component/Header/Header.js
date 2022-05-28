@@ -61,7 +61,7 @@ function Header(props) {
                         <span className="d-none d-md-inline">Login/ Signup</span>
                     </NavLink>
                     <NavLink to={"/Form"} className="appointment-btn scrollto">
-                        <span className="d-none d-md-inline">Form Of Doctor</span>
+                        <span className="d-none d-md-inline">Form</span>
                     </NavLink>
                 </div>
             </header>
