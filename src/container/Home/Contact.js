@@ -10,6 +10,7 @@ function Contact(props) {
         name: yup.string().required("please enter your name"),
         email: yup.string().email("please enter valid email").required("please enter email"),
         subject: yup.string().required("please enter your subject"),
+        message: yup.string().required("please enter your message"),
     }
 
     let schema, initialVal;
@@ -18,7 +19,8 @@ function Contact(props) {
     initialVal = {
         name: "",
         email: "",
-        subject: ""
+        subject: "",
+        message: ""
     }
 
     const formik = useFormik({
@@ -34,6 +36,7 @@ function Contact(props) {
     console.log(formik.errors.name);
     console.log(formik.errors.email);
     console.log(formik.errors.subject);
+    console.log(formik.errors.message);
     return (
         <main>
             <section id="contact" className="contact">
@@ -94,7 +97,10 @@ function Contact(props) {
                                     </div>
                                     <div className="form-group mt-3">
                                         <textarea className="form-control" name="message" rows={5} placeholder="Message" onChange={formik.handleChange} defaultValue={""} />
-                                        
+                                        {
+                                                formik.errors.message ? 
+                                                <p>{formik.errors.message}</p> : null
+                                            }
                                     </div>
                                     <div className="my-3">
                                         <div className="loading">Loading</div>
