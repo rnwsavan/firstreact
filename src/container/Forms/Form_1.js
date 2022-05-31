@@ -33,7 +33,7 @@ function Form_1(props) {
     });
     console.log(formik.errors.name);
     console.log(formik.errors.email);
-    console.log(formik.errors.subject);
+    console.log(formik.errors.degress);
 
     return (
         <>
