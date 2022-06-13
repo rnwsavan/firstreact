@@ -11,19 +11,20 @@ import About from './container/Home/About';
 import Doctors from './container/Home/Doctors';
 import Login from './container/Login-Signup/Login';
 import Form_1 from './container/Forms/Form_1';
+import PublicRoute from './Routes/PublicRoute';
 
 function App() {
   return (
     <>
       <Header/>
       <switch>
-      <Route exact path={"/"} component={Home}/>
-      <Route exact path={"/about"} component={About}/>
-      <Route exact path={"/contact"} component={Contact}/>
+      <PublicRoute exact path={"/"} component={Home}/>
+      <PublicRoute exact path={"/about"} component={About}/>
+      <PublicRoute exact path={"/contact"} component={Contact}/>
       <Route exact path={"/doctor"} component={Doctors}/>
       <Route exact path={"/depatment"} component={department}/>
       <Route exact path={"/apponmemt"} component={appo}/>
-      <Route exact path={"/Login"} component={Login}/>
+      <PublicRoute restricted={true} exact path={"/Login"} component={Login}/>
       <Route exact path={"/Form"} component={Form_1}/>
     </switch>
       <Footer/>
