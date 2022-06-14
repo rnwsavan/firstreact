@@ -1,6 +1,42 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Form, Formik, useFormik } from 'formik';
+import * as yup from 'yup';
 
 function appo(props) {
+    const [userType, setuserType] = useState("Appointment");
+
+    let Appo = {
+        name: yup.string().required("please Enter your Name").required("please enter your name"),
+        email: yup.string().email("please enter valid email").required("please enter your email"),
+        phone: yup.string().required("please enter your phone").required("please enter your phone"),
+        date: yup.string().required("please enter date").required("please enter make date"),
+        message: yup.string().required("please enter your message").required("please enter your message")
+    }
+
+    let schema, initiValue;
+
+    if(userType === "Appointment"){
+        schema = yup.object().shape(Appo);
+        initiValue = {
+            name: "",
+            email: "",
+            phone: "",
+            date: "",
+            message: ""
+        }
+    }
+
+    const formik = useFormik({
+        initialValues : initiValue,
+        validationSchema : schema,
+        onSubmit: (values, {reset}) => {
+            if(userType === "Appointment"){
+                console.log("Successfully Appointment");
+            }
+            reset()
+        }
+    })
+
     return (
         <main>
             <section id="appointment" className="appointment">
@@ -11,24 +47,41 @@ function appo(props) {
                             blandit quam volutpat sollicitudin. Fusce tincidunt sit amet ex in volutpat. Donec lacinia finibus tortor.
                             Curabitur luctus eleifend odio. Phasellus placerat mi et suscipit pulvinar.</p>
                     </div>
-                    <form action method="post" role="form" className="php-email-form">
+                   <Formik value={formik}>
+                    <Form action method="post" role="form" className="php-email-form" onSubmit={formik.handleSubmit}>
                         <div className="row">
                             <div className="col-md-4 form-group">
-                                <input type="text" name="name" className="form-control" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
+                                <input type="text" name="name" className="form-control" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" onChange={formik.handleChange} />
+                                {
+                                                formik.errors.name ? 
+                                                <p>{formik.errors.name}</p> : null
+                                            }
                                 <div className="validate" />
                             </div>
                             <div className="col-md-4 form-group mt-3 mt-md-0">
-                                <input type="email" className="form-control" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" />
+                                <input type="email" className="form-control" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" onChange={formik.handleChange} />
+                                {
+                                                formik.errors.email ? 
+                                                <p>{formik.errors.email}</p> : null
+                                            }
                                 <div className="validate" />
                             </div>
                             <div className="col-md-4 form-group mt-3 mt-md-0">
-                                <input type="tel" className="form-control" name="phone" id="phone" placeholder="Your Phone" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
+                                <input type="tel" className="form-control" name="phone" id="phone" placeholder="Your Phone" data-rule="minlen:4" data-msg="Please enter at least 4 chars" onChange={formik.handleChange} />
+                                {
+                                                formik.errors.phone ? 
+                                                <p>{formik.errors.phone}</p> : null
+                                            }
                                 <div className="validate" />
                             </div>
                         </div>
                         <div className="row">
                             <div className="col-md-4 form-group mt-3">
-                                <input type="datetime" name="date" className="form-control datepicker" id="date" placeholder="Appointment Date" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
+                                <input type="datetime" name="date" className="form-control datepicker" id="date" placeholder="Appointment Date" data-rule="minlen:4" data-msg="Please enter at least 4 chars" onChange={formik.handleChange} />
+                                {
+                                                formik.errors.date ? 
+                                                <p>{formik.errors.date}</p> : null
+                                            }
                                 <div className="validate" />
                             </div>
                             <div className="col-md-4 form-group mt-3">
@@ -42,7 +95,11 @@ function appo(props) {
                             </div>
                         </div>
                         <div className="form-group mt-3">
-                            <textarea className="form-control" name="message" rows={5} placeholder="Message (Optional)" defaultValue={""} />
+                            <textarea className="form-control" name="message" rows={5} placeholder="Message (Optional)" defaultValue={""} onChange={formik.handleChange} />
+                            {
+                                                formik.errors.message ? 
+                                                <p>{formik.errors.message}</p> : null
+                                            }
                             <div className="validate" />
                         </div>
                         <div className="mb-3">
@@ -50,8 +107,9 @@ function appo(props) {
                             <div className="error-message" />
                             <div className="sent-message">Your appointment request has been sent successfully. Thank you!</div>
                         </div>
-                        <div className="text-center"><button type="submit">Make an Appointment</button></div>
-                    </form>
+                        <div className="text-center"><button type="submit" onClick={()=> setuserType("Appointment")}>Make an Appointment</button></div>
+                    </Form>
+                   </Formik>
                 </div>
             </section>
         </main>
