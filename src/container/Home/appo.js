@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Form, Formik, useFormik } from 'formik';
 import * as yup from 'yup';
 
-function appo(props) {
+function Appo(props) {
     const [userType, setuserType] = useState("Appointment");
 
     let Appo = {
@@ -35,7 +35,7 @@ function appo(props) {
             }
             reset()
         }
-    })
+    });
 
     return (
         <main>
@@ -117,4 +117,4 @@ function appo(props) {
     );
 }
 
-export default appo;
+export default Appo;
