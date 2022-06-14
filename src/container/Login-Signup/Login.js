@@ -9,6 +9,7 @@ function Login(props) {
     let Login = {
         email: yup.string().email("please enter valid email").required("please enter email"),
         password: yup.string().required("please enter Password"),
+        
     }
 
     let SignUp = {
@@ -51,6 +52,7 @@ function Login(props) {
         validationSchema: schema,
         onSubmit: (values, { resetForm }) => {
             // alert(JSON.stringify(values, null, 2));
+            sessionStorage.setItem("user", "13579");
             
             if(useType === "Login"){
                 console.log("Successfully Login");

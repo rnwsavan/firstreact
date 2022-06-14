@@ -12,6 +12,7 @@ import Doctors from './container/Home/Doctors';
 import Login from './container/Login-Signup/Login';
 import Form_1 from './container/Forms/Form_1';
 import PublicRoute from './Routes/PublicRoute';
+import PrivateRoute from './Routes/PrivateRoute';
 
 function App() {
   return (
@@ -21,9 +22,9 @@ function App() {
       <PublicRoute exact path={"/"} component={Home}/>
       <PublicRoute exact path={"/about"} component={About}/>
       <PublicRoute exact path={"/contact"} component={Contact}/>
-      <Route exact path={"/doctor"} component={Doctors}/>
-      <Route exact path={"/depatment"} component={department}/>
-      <Route exact path={"/apponmemt"} component={appo}/>
+      <PrivateRoute exact path={"/doctor"} component={Doctors}/>
+      <PublicRoute exact path={"/depatment"} component={department}/>
+      <PublicRoute exact path={"/apponmemt"} component={appo}/>
       <PublicRoute restricted={true} exact path={"/Login"} component={Login}/>
       <Route exact path={"/Form"} component={Form_1}/>
     </switch>
