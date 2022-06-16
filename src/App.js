@@ -12,8 +12,8 @@ import Login from './container/Login-Signup/Login';
 import Form_1 from './container/Forms/Form_1';
 import PublicRoute from './Routes/PublicRoute';
 import PrivateRoute from './Routes/PrivateRoute';
-import Appo from './container/Home/Appo';
 import ListAppo from './container/Home/ListAppo';
+import Appoinment from './container/Home/Appoinment';
 
 function App() {
   return (
@@ -25,7 +25,7 @@ function App() {
       <PublicRoute exact path={"/contact"} component={Contact}/>
       <PrivateRoute exact path={"/doctor"} component={Doctors}/>
       <PublicRoute exact path={"/depatment"} component={department}/>
-      <PrivateRoute exact path={"/apponmemt"} component={Appo}/>
+      <PrivateRoute exact path={"/apponmemt"} component={Appoinment}/>
       <PrivateRoute exact path={"/ListAppoinment"} component={ListAppo}/>
       <PublicRoute restricted={true} exact path={"/Login"} component={Login}/>
       <Route exact path={"/Form"} component={Form_1}/>
