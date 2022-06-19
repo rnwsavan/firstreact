@@ -11,6 +11,27 @@ function Appoinment(props) {
         history.push("/ListAppoinment")
     }
 
+    const handlesubmit = (values) => {
+        let Data = {
+            name:values.name,
+            email:values.email,
+            phone:values.phone,
+            date:values.date,
+            department:values.department,
+            message:values.message
+        }
+        let BookData = JSON.parse(localStorage.getItem("appointment"));
+    
+        if (BookData == null) {
+            localStorage.setItem("appointment", JSON.stringify([Data]))
+        } else {
+            BookData.push(Data)
+            localStorage.setItem("appointment", JSON.stringify(BookData))
+        }
+        console.log(Data);
+    }
+
+    
 
     let schema = yup.object().shape({
         name: yup.string().required("please enter name"),
@@ -31,43 +52,15 @@ function Appoinment(props) {
         },
         validationSchema: schema,
         onSubmit: (values, { resetForm }) => {
-
-            const {
-                name,
-                email,
-                phone,
-                date,
-                department,
-                message
-            } = values;
-
-
-            let Data = {
-                name,
-                email,
-                phone,
-                date,
-                department,
-                message
-            }
-            let BookData = JSON.parse(localStorage.getItem("appointment"));
-
-            if (BookData == null) {
-                localStorage.setItem("appointment", JSON.stringify([Data]))
-            } else {
-                BookData.push(Data)
-                localStorage.setItem("appointment", JSON.stringify(BookData))
-            }
-            console.log(Data);
-
             resetForm();
             handleInsert();
+            handlesubmit(values);
         },
     });
 
     const { handleChange, handleSubmit, errors } = formik;
 
-    console.log(errors);
+    // console.log(errors);
 
 
     return (
@@ -138,7 +131,7 @@ function Appoinment(props) {
                                 <InputBox type="textarea" className="form-control" name="message" rows={5} placeholder="Message (Optional)"  error = {Boolean(errors.message)}
                                     errorMessages = {errors.message}
                                     onChange={handleChange}
-                                    value={formik.values.message} />
+                                    value={formik.values.textarea} />
 
                                 <div className="validate" />
                             </div>
@@ -147,7 +140,9 @@ function Appoinment(props) {
                                 <div className="error-message" />
                                 <div className="sent-message">Your appointment request has been sent successfully. Thank you!</div>
                             </div>
-                            <div className="text-center"><button type="submit" onClick={() => handleInsert()}>Make an Appointment</button></div>
+                            <div className="text-center">
+                            <button type="submit"> Make an Appointment </button>
+                            </div>
                         </Form>
                     </Formik>
                 </div>

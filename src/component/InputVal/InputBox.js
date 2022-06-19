@@ -1,7 +1,7 @@
 import React from 'react';
-import { FormFeedbackBox, InputBoxStyle } from './inputBox.style';
+import { FormFeedbackBox, InputBoxStyle, SubmitBtn } from './inputBox.style';
 
-function InputBox({ children, error = false, errorMessages = '', ...rest }) {
+function InputBox({ children, error = false, primary = '', errorMessages = '', ...rest }) {
     return (
         <>
             <InputBoxStyle {...rest}>
@@ -11,6 +11,10 @@ function InputBox({ children, error = false, errorMessages = '', ...rest }) {
             <FormFeedbackBox error={error}>
                 {errorMessages}
             </FormFeedbackBox>
+
+            {/* <SubmitBtn sub_btn={primary}>
+
+            </SubmitBtn> */}
 
         </>
     );
