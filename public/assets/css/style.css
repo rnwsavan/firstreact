@@ -1756,3 +1756,15 @@ section {
 .aptNav{
   border-bottom: 2px solid #56bbc9;
 }
+
+.input-border{
+  border-radius: 0 25px 0 30px !important;
+  transition: all 1s !important;
+  border: 1px solid #1ec962 !important;
+}
+
+.input-border:hover{
+  border-radius: 25px 0 30px 0 !important;
+  transition: all 1s !important;
+  border: 1px solid #f59439 !important;
+}
