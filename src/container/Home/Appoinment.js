@@ -3,32 +3,39 @@ import { Form, Formik, useFormik } from 'formik';
 import * as yup from 'yup';
 import { NavLink, useHistory } from 'react-router-dom';
 import InputBox from '../../component/InputVal/InputBox';
+import { MenuItem, TextField } from '@mui/material';
 
 function Appoinment(props) {
     const history = useHistory();
+    
     
     const handleInsert = () => {
         history.push("/ListAppoinment")
     }
 
     const handlesubmit = (values) => {
-        let Data = {
-            name:values.name,
-            email:values.email,
-            phone:values.phone,
-            date:values.date,
-            department:values.department,
-            message:values.message
-        }
+        // let AppoData = {
+        //     name:values.name,
+        //     email:values.email,
+        //     phone:values.phone,
+        //     date:values.date,
+        //     department:values.department,
+        //     message:values.message
+        // }
         let BookData = JSON.parse(localStorage.getItem("appointment"));
+
+        let data = {
+            id: Math.floor(Math.random() * 1000),
+            ...values
+        }
     
         if (BookData == null) {
-            localStorage.setItem("appointment", JSON.stringify([Data]))
+            localStorage.setItem("appointment", JSON.stringify([data]))
         } else {
-            BookData.push(Data)
+            BookData.push(data)
             localStorage.setItem("appointment", JSON.stringify(BookData))
         }
-        console.log(Data);
+        // console.log(Data);
     }
 
     
@@ -38,6 +45,7 @@ function Appoinment(props) {
         email: yup.string().email("please enter valid email").required("please enter email"),
         phone: yup.number().required("please enter number"),
         date: yup.string().required("please select date"),
+        message: yup.string().required("please enter message"),
         department: yup.string().required("please select department")
     });
 
@@ -58,7 +66,7 @@ function Appoinment(props) {
         },
     });
 
-    const { handleChange, handleSubmit, errors } = formik;
+    const { handleChange, handleSubmit, handleBlur, errors, touched } = formik;
 
     // console.log(errors);
 
@@ -85,23 +93,26 @@ function Appoinment(props) {
                         <Form action method="post" role="form" className="php-email-form" onSubmit={handleSubmit}>
                             <div className="row">
                                 <div className="col-md-4 form-group">
-                                    <InputBox type="text" name="name" className="form-control" id="name" placeholder="Your Name" error={Boolean(errors.name)}
+                                    <InputBox type="text" name="name" className="form-control input-border" id="name" placeholder="Your Name" error={Boolean(errors.name && touched.name)}
                                         errorMessages={errors.name}
                                         onChange={handleChange}
+                                        onBlur={handleBlur}
                                         value={formik.values.name} />
                                     <div className="validate" />
                                 </div>
                                 <div className="col-md-4 form-group mt-3 mt-md-0">
-                                    <InputBox type="email" className="form-control" name="email" id="email" placeholder="Your Email" error={Boolean(errors.email)}
+                                    <InputBox type="email" className="form-control input-border" name="email" id="email" placeholder="Your Email" error={Boolean(errors.email && touched.email)}
                                         errorMessages={errors.email}
                                         onChange={handleChange}
+                                        onBlur={handleBlur}
                                         value={formik.values.email} />
                                     <div className="validate" />
                                 </div>
                                 <div className="col-md-4 form-group mt-3 mt-md-0">
-                                    <InputBox type="tel" className="form-control" name="phone" id="phone" placeholder="Your Phone" error={Boolean(errors.phone)}
+                                    <InputBox type="tel" className="form-control input-border" name="phone" id="phone" placeholder="Your Phone" error={Boolean(errors.phone && touched.phone)}
                                         errorMessages={errors.phone}
                                         onChange={handleChange}
+                                        onBlur={handleBlur}
                                         value={formik.values.phone} />
 
                                     <div className="validate" />
@@ -109,15 +120,19 @@ function Appoinment(props) {
                             </div>
                             <div className="row">
                                 <div className="col-md-4 form-group mt-3">
-                                    <InputBox type="date" name="date" className="form-control datepicker" id="date" placeholder="Appointment Date" error={Boolean(errors.date)}
+                                    <InputBox type="date" name="date" className="form-control datepicker input-border" id="date" placeholder="Appointment Date" error={Boolean(errors.date && touched.date)}
                                         errorMessages={errors.date}
                                         onChange={handleChange}
+                                        onBlur={handleBlur}
                                         value={formik.values.date} />
                                     <div className="validate" />
                                 </div>
                                 <div className="col-md-4 form-group mt-3">
-                                    <InputBox type="select" name="department" id="department" className="form-select" onChange={handleChange}
-                                        value={formik.values.select} error={Boolean(errors.department)} errorMessages={errors.department}>
+                                    <InputBox type="select" name="department" id="department" className="form-select input-border" onChange={handleChange}
+                                    onBlur={handleBlur}
+                                        value={formik.values.select} 
+                                        error={Boolean(errors.department && touched.department)} 
+                                        errorMessages={errors.department}>
                                         <option value>Select Department</option>
                                         <option value="Department 1">Department 1</option>
                                         <option value="Department 2">Department 2</option>
@@ -128,10 +143,12 @@ function Appoinment(props) {
                                 </div>
                             </div>
                             <div className="form-group mt-3">
-                                <InputBox type="textarea" className="form-control" name="message" rows={5} placeholder="Message (Optional)"  error = {Boolean(errors.message)}
+                                <InputBox type="textarea" className="form-control input-border" name="message" rows={5} placeholder="Message (Optional)" 
+                                 error = {Boolean(errors.message && touched.message)}
                                     errorMessages = {errors.message}
                                     onChange={handleChange}
-                                    value={formik.values.textarea} />
+                                    onBlur={handleBlur}
+                                    value={formik.values.message} />
 
                                 <div className="validate" />
                             </div>
