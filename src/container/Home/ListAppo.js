@@ -45,9 +45,8 @@ function ListAppo(props) {
        setDOpen(false);
     }
 
-    const handleClickEOpen = (params) => {
-        console.log(params.row);
-        history.push("/apponmemt");
+    const handleClickEOpen = (id) => {
+        history.push("/apponmemt", {"id" : id});
     }
 
     useEffect(
@@ -75,7 +74,7 @@ function ListAppo(props) {
                             <DeleteIcon />
                         </IconButton>
 
-                        <IconButton onClick={() => handleClickEOpen(params)}>
+                        <IconButton onClick={() => handleClickEOpen(params.id)}>
                             <EditIcon />
                         </IconButton>
                     </>

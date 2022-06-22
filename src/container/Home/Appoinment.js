@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Form, Formik, useFormik } from 'formik';
 import * as yup from 'yup';
 import { NavLink, useHistory } from 'react-router-dom';
@@ -7,38 +7,14 @@ import { MenuItem, TextField } from '@mui/material';
 
 function Appoinment(props) {
     const history = useHistory();
-    
-    
+    const [update, setUpdate] = useState(false);
+
+
     const handleInsert = () => {
         history.push("/ListAppoinment")
     }
 
-    const handlesubmit = (values) => {
-        // let AppoData = {
-        //     name:values.name,
-        //     email:values.email,
-        //     phone:values.phone,
-        //     date:values.date,
-        //     department:values.department,
-        //     message:values.message
-        // }
-        let BookData = JSON.parse(localStorage.getItem("appointment"));
 
-        let data = {
-            id: Math.floor(Math.random() * 1000),
-            ...values
-        }
-    
-        if (BookData == null) {
-            localStorage.setItem("appointment", JSON.stringify([data]))
-        } else {
-            BookData.push(data)
-            localStorage.setItem("appointment", JSON.stringify(BookData))
-        }
-        // console.log(Data);
-    }
-
-    
 
     let schema = yup.object().shape({
         name: yup.string().required("please enter name"),
@@ -48,6 +24,8 @@ function Appoinment(props) {
         message: yup.string().required("please enter message"),
         department: yup.string().required("please select department")
     });
+
+
 
     const formik = useFormik({
         initialValues: {
@@ -60,13 +38,68 @@ function Appoinment(props) {
         },
         validationSchema: schema,
         onSubmit: (values, { resetForm }) => {
-            resetForm();
-            handleInsert();
-            handlesubmit(values);
+            if (update) {
+                handleUpdate(values)
+            } else {
+                let undata = {
+                    id: Math.floor(Math.random() * 1000),
+                    ...values
+                }
+                let BookData = JSON.parse(localStorage.getItem("appointment"));
+
+                if (BookData === null) {
+                    localStorage.setItem("appointment", JSON.stringify([undata]))
+                } else {
+                    BookData.push(undata)
+                    localStorage.setItem("appointment", JSON.stringify(BookData))
+                }
+                resetForm();
+                handleInsert();
+            }
         },
     });
 
-    const { handleChange, handleSubmit, handleBlur, errors, touched } = formik;
+    const EditData = () => {
+        let localData = JSON.parse(localStorage.getItem('appointment'));
+
+        if (localData !== null && props.location.state) {
+            let UFilter = localData.filter((u) => u.id === props.location.state.id)
+            console.log(UFilter);
+            formik.setValues(UFilter[0])
+            setUpdate(true)
+        }
+    }
+
+    const handleUpdate = (data) => {
+        console.log(data);
+
+        let localData = JSON.parse(localStorage.getItem("appointment"));
+
+        console.log(localData);
+
+        // let ufd = localData.map((u) => id == id)
+
+        let shape = localData.map((l) => {
+            if (l.id == data.id) {
+                return data
+            } else {
+                return l
+            }
+        })
+
+        localStorage.setItem('appointment', JSON.stringify(shape));
+        formik.resetForm()
+        history.push("/ListAppoinment");
+
+    }
+
+    useEffect(
+        () => {
+            EditData();
+        }, []
+    )
+
+    const { handleChange, handleSubmit, handleBlur, errors, touched, values } = formik;
 
     // console.log(errors);
 
@@ -97,7 +130,7 @@ function Appoinment(props) {
                                         errorMessages={errors.name}
                                         onChange={handleChange}
                                         onBlur={handleBlur}
-                                        value={formik.values.name} />
+                                        value={values.name} />
                                     <div className="validate" />
                                 </div>
                                 <div className="col-md-4 form-group mt-3 mt-md-0">
@@ -105,7 +138,7 @@ function Appoinment(props) {
                                         errorMessages={errors.email}
                                         onChange={handleChange}
                                         onBlur={handleBlur}
-                                        value={formik.values.email} />
+                                        value={values.email} />
                                     <div className="validate" />
                                 </div>
                                 <div className="col-md-4 form-group mt-3 mt-md-0">
@@ -113,7 +146,7 @@ function Appoinment(props) {
                                         errorMessages={errors.phone}
                                         onChange={handleChange}
                                         onBlur={handleBlur}
-                                        value={formik.values.phone} />
+                                        value={values.phone} />
 
                                     <div className="validate" />
                                 </div>
@@ -124,14 +157,14 @@ function Appoinment(props) {
                                         errorMessages={errors.date}
                                         onChange={handleChange}
                                         onBlur={handleBlur}
-                                        value={formik.values.date} />
+                                        value={values.date} />
                                     <div className="validate" />
                                 </div>
                                 <div className="col-md-4 form-group mt-3">
                                     <InputBox type="select" name="department" id="department" className="form-select input-border" onChange={handleChange}
-                                    onBlur={handleBlur}
-                                        value={formik.values.select} 
-                                        error={Boolean(errors.department && touched.department)} 
+                                        onBlur={handleBlur}
+                                        value={values.select}
+                                        error={Boolean(errors.department && touched.department)}
                                         errorMessages={errors.department}>
                                         <option value>Select Department</option>
                                         <option value="Department 1">Department 1</option>
@@ -143,12 +176,12 @@ function Appoinment(props) {
                                 </div>
                             </div>
                             <div className="form-group mt-3">
-                                <InputBox type="textarea" className="form-control input-border" name="message" rows={5} placeholder="Message (Optional)" 
-                                 error = {Boolean(errors.message && touched.message)}
-                                    errorMessages = {errors.message}
+                                <InputBox type="textarea" className="form-control input-border" name="message" rows={5} placeholder="Message (Optional)"
+                                    error={Boolean(errors.message && touched.message)}
+                                    errorMessages={errors.message}
                                     onChange={handleChange}
                                     onBlur={handleBlur}
-                                    value={formik.values.message} />
+                                    value={values.message} />
 
                                 <div className="validate" />
                             </div>
@@ -157,9 +190,10 @@ function Appoinment(props) {
                                 <div className="error-message" />
                                 <div className="sent-message">Your appointment request has been sent successfully. Thank you!</div>
                             </div>
-                            <div className="text-center">
-                            <button type="submit"> Make an Appointment </button>
-                            </div>
+                            {
+                                update ? <div className="text-center"><button type="submit">Update an Appointment</button></div> :
+                                    <div className="text-center"><button type="submit">Make an Appointment</button></div>
+                            }
                         </Form>
                     </Formik>
                 </div>
