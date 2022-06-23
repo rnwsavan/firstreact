@@ -3,8 +3,6 @@ import { Form, Formik, useFormik } from 'formik';
 import * as yup from 'yup';
 import { NavLink, useHistory } from 'react-router-dom';
 import InputBox from '../../component/InputVal/InputBox';
-import { MenuItem, TextField } from '@mui/material';
-
 function Appoinment(props) {
     const history = useHistory();
     const [update, setUpdate] = useState(false);
