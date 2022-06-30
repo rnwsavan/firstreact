@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import Header from './component/Header/Header';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import Footer from './component/Footer/Footer';
 import Home from './container/Home/Home';
 import Contact from './container/Home/Contact';
@@ -14,23 +14,33 @@ import PublicRoute from './Routes/PublicRoute';
 import PrivateRoute from './Routes/PrivateRoute';
 import ListAppo from './container/Home/ListAppo';
 import Appoinment from './container/Home/Appoinment';
+import { Provider } from 'react-redux';
+import { configureStore } from './Redux/Store';
+import Layout from './component/Layout';
+import Counter from './container/Counter/Counter';
 
 function App() {
+  const store = configureStore();
   return (
     <>
-      <Header/>
-      <switch>
-      <PublicRoute exact path={"/"} component={Home}/>
-      <PublicRoute exact path={"/about"} component={About}/>
-      <PublicRoute exact path={"/contact"} component={Contact}/>
-      <PrivateRoute exact path={"/doctor"} component={Doctors}/>
-      <PublicRoute exact path={"/depatment"} component={department}/>
-      <PrivateRoute exact path={"/apponmemt"} component={Appoinment}/>
-      <PrivateRoute exact path={"/ListAppoinment"} component={ListAppo}/>
-      <PublicRoute restricted={true} exact path={"/Login"} component={Login}/>
-      <Route exact path={"/Form"} component={Form_1}/>
-    </switch>
-      <Footer/>
+      <Provider store={store}>
+        <Layout>
+          <Header />
+          <Switch>
+            <PublicRoute exact path={"/"} component={Home} />
+            <PublicRoute exact path={"/about"} component={About} />
+            <PublicRoute exact path={"/contact"} component={Contact} />
+            <PublicRoute exact path={"/counter"} component={Counter} />
+            <PrivateRoute exact path={"/doctor"} component={Doctors} />
+            <PublicRoute exact path={"/depatment"} component={department} />
+            <PrivateRoute exact path={"/apponmemt"} component={Appoinment} />
+            <PrivateRoute exact path={"/ListAppoinment"} component={ListAppo} />
+            <PublicRoute restricted={true} exact path={"/Login"} component={Login} />
+            <Route exact path={"/Form"} component={Form_1} />
+            </Switch>
+          <Footer />
+        </Layout>
+      </Provider>
     </>
   );
 }

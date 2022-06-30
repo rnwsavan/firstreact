@@ -3,7 +3,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { Dialog, DialogActions, IconButton } from '@mui/material';
+import { Dialog, DialogActions, IconButton, TextField } from '@mui/material';
 import { Button } from 'reactstrap';
 import EditIcon from '@mui/icons-material/Edit';
 import { useHistory } from 'react-router-dom';
@@ -12,6 +12,7 @@ function ListAppo(props) {
     const [data, setData] = useState([]);
     const [Dopen, setDOpen] = useState(false);
     const [Did, setDid] = useState('');
+    const [filterdata, setFilter] = useState([]);
     const history = useHistory()
 
     const loadData = () => {
@@ -38,7 +39,7 @@ function ListAppo(props) {
         console.log(Did);
        let localData = JSON.parse(localStorage.getItem("appointment"));
 
-       let DFilter = localData.filter((d,i) => d.id != Did);
+       let DFilter = localData.filter((d,i) => d.id !== Did);
 
        localStorage.setItem("appointment", JSON.stringify(DFilter))
        loadData();
@@ -82,6 +83,28 @@ function ListAppo(props) {
             }
         },
     ]
+
+    const handlesearch = (serval) => {
+        let searchData = JSON.parse(localStorage.getItem("appointment"));
+
+        let fData = searchData.filter((f) => (
+        f.id.toString().includes(serval) ||
+        f.name.toString().toLowerCase().includes(serval.toLowerCase()) ||
+        f.email.toString().includes(serval) ||
+        f.phone.toString().includes(serval) ||
+        f.department.toString().includes(serval) ||
+        f.data.toString().includes(serval) ||
+        f.message.toString().includes(serval)
+        ));
+
+        setFilter(fData);
+        // console.log(fData);
+
+            // console.log(searchData);
+            console.log(serval);
+    }
+
+    const SearchResult = filterdata.length > 0 ? filterdata : data;
     
 
     return (
@@ -91,9 +114,20 @@ function ListAppo(props) {
                     <div className="section-title">
                         <h2 className='text-center'> List Appointment</h2>
                     </div>
+                    <div>
+                        <TextField
+                        margin="dense"
+                        id="search"
+                        label="search"
+                        type="search"
+                        fullWidth
+                        variant="standard"
+                        onChange={(e) => handlesearch(e.target.value)}
+                        />
+                    </div>
                     <div style={{ height: 400, width: '100%' }}>
                         <DataGrid
-                            rows={data}
+                            rows={SearchResult}
                             columns={columns}
                             pageSize={5}
                             rowsPerPageOptions={[5]}
