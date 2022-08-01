@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import * as yup from 'yup';
 import { Form, Formik, useFormik } from 'formik';
 import { Button, Input, Label } from 'reactstrap';
+import { NavLink } from 'react-router-dom';
 
 function Form_1(props) {
     const [userform, setuserform] = useState("Form_1");
@@ -28,12 +29,19 @@ function Form_1(props) {
             if (userform === "Form_1") {
                 console.log("Successfully Send Message");
             }
+
+            let data ={
+                email,
+                password
+           }
+           dispatch(signAction(data))
+           
             resetForm()
         },
     });
-    console.log(formik.errors.name);
-    console.log(formik.errors.email);
-    console.log(formik.errors.degress);
+    // console.log(formik.errors.name);
+    // console.log(formik.errors.email);
+    // console.log(formik.errors.degress);
 
     return (
         <>
