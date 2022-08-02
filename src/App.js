@@ -35,7 +35,7 @@ function App() {
             <PublicRoute exact path={"/depatment"} component={department} />
             <PrivateRoute exact path={"/apponmemt"} component={Appoinment} />
             <PrivateRoute exact path={"/ListAppoinment"} component={ListAppo} />
-            <PublicRoute restricted={true} exact path={"/Login"} component={Login} />
+            <PublicRoute  exact path={"/Login"} component={Login} />
             <Route exact path={"/Form"} component={Form_1} />
             </Switch>
           <Footer />
