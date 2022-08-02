@@ -2,46 +2,72 @@ import React, { useState } from 'react';
 import * as yup from 'yup';
 import { Form, Formik, useFormik } from 'formik';
 import { Button, Input, Label } from 'reactstrap';
-import { NavLink } from 'react-router-dom';
+import { useDispatch} from 'react-redux';
 
 function Form_1(props) {
-    const [userform, setuserform] = useState("Form_1");
+    const [useType, setUseType] = useState("Form_1");
+    const dispatch = useDispatch();
 
-    let Form_1 = {
-        name: yup.string().required("please enter doctor name"),
+    let Login = {
         email: yup.string().email("please enter valid email").required("please enter email"),
-        degress: yup.string().required("please enter your degress"),
+        password: yup.string().required("please enter Password"),
     }
 
-    let schema, initialVal;
-
-    schema = yup.object().shape(Form_1);
-    initialVal = {
-        name: "",
-        email: "",
-        degress: ""
+    let SignUp = {
+        name: yup.string().required("please Enter Name"),
+        email: yup.string().email("please enter valid email").required("please enter email"),
+        password: yup.string().required("please enter Password"),
     }
+
+    let forgetPassowrd = {
+        email: yup.string().email("please enter valid email").required("please enter email"),
+    }
+
+    let schema, initiValue;
+
+    if (useType === "Login") {
+        schema = yup.object().shape(Login);
+        initiValue = {
+            email: "",
+            password: ""
+        }
+
+    } else if (useType === "SignUp") {
+        schema = yup.object().shape(SignUp);
+        initiValue = {
+            name: "",
+            email: "",
+            password: ""
+        }
+    } else if (useType === "forgetPassowrd") {
+        schema = yup.object().shape(forgetPassowrd);
+        initiValue = {
+            email: ""
+        }
+    }
+
+   
+
+    
 
     const formik = useFormik({
-        initialValues: initialVal,
+        initialValues: initiValue,
         validationSchema: schema,
         onSubmit: (values, { resetForm }) => {
-            if (userform === "Form_1") {
-                console.log("Successfully Send Message");
-            }
+            alert(JSON.stringify(values, null, 2));
 
-            let data ={
-                email,
-                password
-           }
-           dispatch(signAction(data))
-           
+            if (useType === "Login") {
+                console.log("Successfully Login 👍");
+            } else if (useType === "SignUp") {
+                console.log("Successfully SignUp 👍");
+            } else if (useType === "forgetPassowrd") {
+                console.log("Successfully Forget Passowrd 👍");
+            }
             resetForm()
         },
     });
-    // console.log(formik.errors.name);
-    // console.log(formik.errors.email);
-    // console.log(formik.errors.degress);
+
+    console.log(formik.errors.email);
 
     return (
         <>
@@ -79,7 +105,7 @@ function Form_1(props) {
                                             }
                                     </div>
                                     
-                                    <div className="text-center mt-4"><Button type="submit" onClick={() => setuserform("Form_1")}>Send Message</Button></div>
+                                    <div className="text-center mt-4"><Button type="submit" onClick={() => setUseType("Form_1")}>Send Message</Button></div>
                                 </Form>
                             </Formik>
                         </div>
