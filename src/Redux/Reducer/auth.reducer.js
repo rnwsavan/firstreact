@@ -1,4 +1,4 @@
-import * as ActionType from '../action/ActionTypes'
+import * as ActionType from '../ActionType'
 
 const newvalue = {
     isLoading : false,
@@ -17,7 +17,7 @@ export const authReducer =(state=newvalue ,action) =>{
             }
         
         default : 
-            return state
+            return state;
             
     }
     

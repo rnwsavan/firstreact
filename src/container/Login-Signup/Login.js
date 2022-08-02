@@ -1,187 +1,225 @@
-import { Form, Formik, useFormik } from 'formik';
 import React, { useState } from 'react';
-import { Button, FormGroup, Input, Label } from 'reactstrap';
 import * as yup from 'yup';
+import { Form, Formik, useFormik } from 'formik';
+import { useDispatch } from 'react-redux';
+import { SignupUser } from '../../Redux/Action/auth.action';
+
 
 function Login(props) {
-    const [useType, setUseType] = useState("Login");
+    const [userType, setUserType] = useState('Login')
+    const [reset, setReset] = useState(false)
 
-    let Login = {
-        email: yup.string().email("please enter valid email").required("please enter email"),
-        password: yup.string().required("please enter Password"),
-        
+    const dispatch = useDispatch()
+
+    const handletLogin = (values) => {
+        // alert(JSON.stringify(values, null, 2));
+        sessionStorage.setItem("user", "1234567")
+
     }
 
-    let SignUp = {
-        name: yup.string().required("please Enter Name"),
-        email: yup.string().email("please enter valid email").required("please enter email"),
-        password: yup.string().required("please enter Password"),
-    }
+    const handleSignup = (values) => {
 
-    let forgetPassowrd = {
-        email: yup.string().email("please enter valid email").required("please enter email"),
-    }
+        const data = JSON.parse(localStorage.getItem("users"));
 
-    let schema, initiValue;
+        console.log(data);
 
-    if(useType === "Login"){
-        schema = yup.object().shape(Login);
-        initiValue = {
-            email: "",
-            password: ""
+        if (data === null) {
+            localStorage.setItem("users", JSON.stringify([values]));
+        } else {
+            data.push(values);
+            localStorage.setItem("users", JSON.stringify(data));
         }
 
-    }else if(useType === "SignUp"){
-        schema = yup.object().shape(SignUp);  
-        initiValue = {
-            name: "",
-            email: "",
-            password: ""
-        }      
-    }else if(useType === "forgetPassowrd"){
-        schema = yup.object().shape(forgetPassowrd); 
-        initiValue = {
-            email: ""
-        } 
+        data.push(values);
+        console.log(data);
+        localStorage.setItem("users", JSON.stringify(values));
+        alert(JSON.stringify(values, null, 2));
+
+
     }
-    
-    // const schema = yup.object().shape(Login);
-    
+
+
+    const handlepassword = (values) => {
+        alert(JSON.stringify(values.email));
+    }
+
+    let Login = {
+        email: yup.string().required('enter email').email('enter valid email'),
+        password: yup.string().required('please enter password'),
+    }
+
+    let Signup = {
+        name: yup.string().required('please enter name'),
+        email: yup.string().required('enter email').email('enter valid email'),
+        password: yup.string().required('please enter password'),
+    }
+    let Password = {
+        email: yup.string().required('enter email').email('enter valid email')
+    }
+
+
+    let schema, initVal;
+
+    // console.log(reset);
+    if (userType === "Login" && !reset) {
+        schema = yup.object().shape(Login);
+        initVal = {
+            email: '',
+            password: ''
+        }
+    } else if (userType === "Signup" && !reset) {
+        schema = yup.object().shape(Signup);
+        initVal = {
+            name: '',
+            email: '',
+            password: ''
+        }
+    } else if (reset) {
+        console.log(reset);
+        schema = yup.object().shape(Password);
+        initVal = {
+            email: ''
+        }
+    }
+
     const formik = useFormik({
-        initialValues : initiValue,
+        initialValues: initVal,
         validationSchema: schema,
         onSubmit: (values, { resetForm }) => {
-            // alert(JSON.stringify(values, null, 2));
-            sessionStorage.setItem("user", "13579");
-            
-            if(useType === "Login"){
-                console.log("Successfully Login");
-            }else if(useType === "SignUp"){
-                console.log("Successfully SignUp");
-            }else if(useType === "forgetPassowrd"){
-                console.log("Successfully Forget Passowrd");
+            if (userType === "Login" && !reset) {
+                handletLogin(values)
+            } else if (userType === "Signup" && !reset) {
+                // handleSignup(values)
+                dispatch(SignupUser(values))
+            } else if (reset) {
+                handlepassword(values)
             }
-            resetForm()
-        },
-    });
+            resetForm();
+        }
+    })
 
-    console.log(formik.errors.email);
+
+    // console.log(formik.errors);
 
     return (
-        <main id="main">
-            <section id="contact" className="contact">
-                <div className="container">
-                    <div className='login' style={{ width: "50%", margin: "auto" }}>
-                        {
-                            useType === 'forgetPassowrd' ? <h3 className='text-center'>Forgot Password</h3> :
-                                useType === "Login" ?
-                                    <h3 className='text-center'>Login</h3> :
-                                    <h3 className='text-center'>Sign Up</h3>
-                        }
-                        <Formik value={formik}>
-                            <Form onSubmit={formik.handleSubmit}>
+        <section id="appointment" className="appointment d-flex">
+            <div className="container">
+                <div className='section-title'>
+                    {
+                        reset ?
+                            <h2 className='centerr'>Reset Password</h2> :
+                            userType === 'Login' ? <h2 className='centerr'>Login</h2> : <h2 className='centerr'>Signup</h2>
+                    }
+                </div>
+                <div className='php-email-form'>
+                    <Formik value={formik}>
+                        <Form onSubmit={formik.handleSubmit}>
+                            <div className='row align-items-center justify-content-center'>
                                 {
-                                    useType === 'forgetPassowrd' ?
-                                    <FormGroup>
-                                        <Label for="exampleEmail">
-                                            Email
-                                        </Label>
-                                        <Input
-                                            id="exampleEmail"
-                                            name="email"
-                                            placeholder="Enter Email"
-                                            type="email"
-                                            onChange={formik.handleChange}
-                                        />
-                                        {
-                                                formik.errors.email ? 
-                                                <p>{formik.errors.email}</p> : null
-                                            }
-                                    </FormGroup>
-                                    : null
-                                }
-                                {
-                                    useType === "SignUp" ?
-                                        <FormGroup>
-                                            <Label for="exampleEmail">
-                                                Name
-                                            </Label>
-                                            <Input
-                                                name="name"
-                                                placeholder="Enter Name"
+                                    userType === 'Login' ? null
+                                        :
+                                        <div className="col-md-7 form-group">
+                                            <input
                                                 type="text"
+                                                name="name"
+                                                className="form-control"
+                                                id="name"
+                                                placeholder="Your Name"
                                                 onChange={formik.handleChange}
+                                                value={formik.values.name}
+                                                onBlur={formik.handleBlur}
                                             />
                                             {
-                                                formik.errors.name ? 
-                                                <p>{formik.errors.name}</p> : null
+                                                formik.errors.name && formik.touched.name ? <p>{formik.errors.name}</p> : ''
                                             }
-                                        </FormGroup> :
-                                        null
-                                }
-                                {
-                                    (useType === "Login" || useType === "SignUp") &&
-                                    <>
-                                        <FormGroup>
-                                            <Label for="exampleEmail">
-                                                Email
-                                            </Label>
-                                            <Input
-                                                id="exampleEmail"
-                                                name="email"
-                                                placeholder="Enter Email"
-                                                type="email"
-                                                onChange={formik.handleChange}
-                                            />
-                                            {
-                                                formik.errors.email ? 
-                                                <p>{formik.errors.email}</p> : null
-                                            }
-                                        </FormGroup>
-                                        <FormGroup>
-                                            <Label for="examplePassword">
-                                                Password
-                                            </Label>
-                                            <Input
-                                                id="examplePassword" 
-                                                name="password"
-                                                placeholder="password"
-                                                type="password"
-                                                onChange={formik.handleChange}
-                                            />
-                                            {
-                                                formik.errors.password ? 
-                                                <p>{formik.errors.password}</p> : null
-                                            }
-                                        </FormGroup>
-                                    </>
-                                }
-                                {
-                                    useType === "Login" ?
-                                        <div className="text-center">
-                                            <Button type='submit'
-                                                className="appointment-btn scrollto m-0">Login</Button>
-                                            <p className="mt-3 cursor-pointer" onClick={() => setUseType("forgetPassowrd")}
-                                                style={{ cursor: "pointer" }}>Forgot Password</p>
-                                            <Button type='submit' className="appointment-btn scrollto m-0"
-                                                onClick={() => setUseType("SignUp")}>Sign Up</Button>
-                                        </div> :
-                                        <div className="text-center">
-                                            <Button type='submit' className="appointment-btn scrollto m-0">
-                                                {
-                                                    useType === 'forgetPassowrd' ? "Send OPT" : "Sign Up"
-                                                }</Button>
-                                            <Button type='submit' className="appointment-btn scrollto m-0"
-                                                onClick={() => setUseType("Login")}>Login</Button>
+
+                                            <div className="validate" />
                                         </div>
                                 }
-                            </Form>
-                        </Formik>
+                                <div className="col-md-7 form-group mt-3 mt-md-0">
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        name="email"
+                                        id="email"
+                                        placeholder="Your Email"
+                                        onChange={formik.handleChange}
+                                        value={formik.values.email}
+                                        onBlur={formik.handleBlur}
+                                    />
+                                    {
+                                        formik.errors.email && formik.touched.email ? <p>{formik.errors.email}</p> : ''
+                                    }
+
+                                    <div className="validate" />
+                                </div>
+                                {
+                                    reset === true ?
+                                        null :
+                                        <div className="col-md-7 form-group mt-3 mt-md-0">
+                                            <input
+                                                type="password"
+                                                className="form-control"
+                                                name="password"
+                                                id="password"
+                                                placeholder="Your Password"
+                                                onChange={formik.handleChange}
+                                                value={formik.values.password}
+                                                onBlur={formik.handleBlur}
+                                            />
+                                            {
+                                                formik.errors.password && formik.touched.password ? <p>{formik.errors.password}</p> : ''
+                                            }
+
+                                            <div className="validate" />
+                                        </div>
+                                }
+                                {
+                                    reset ?
+                                        <div className="text-center">
+                                            <button type="submit">Forgot password</button><br></br>
+                                        </div>
+                                        :
+                                        userType === 'Login' ?
+                                            <div className="text-center">
+                                                <button type="submit">Login</button><br></br>
+                                            </div> :
+                                            <div className="text-center">
+                                                <button type="submit">signup</button>
+                                            </div>
+                                }
+                                {
+                                    reset === true ?
+                                        <div className='text-center mt-5'>
+                                            <span>already have an account ?</span>
+                                            <a onClick={() => setReset(false)}>Login</a>
+                                        </div> :
+                                        userType === 'Login' ?
+                                            <div className='text-center mt-5'>
+                                                <span>create a New account ?</span>
+                                                <a onClick={() => { setUserType('Signup') }} >signup</a> <br></br>
+                                                <a className='mt-3' onClick={() => { setReset(true) }}>Forget password</a>
+                                            </div> :
+                                            <div className='text-center mt-5'>
+                                                <span>already have an account ?</span>
+                                                <a onClick={() => { setUserType('Login') }} >Login</a>
+                                            </div>
+                                }
+                            </div>
+                        </Form>
+                    </Formik>
+                    <div>
                     </div>
                 </div>
-            </section>
-        </main>
+            </div>
+
+
+        </section >
     );
 }
+
+
+
+
 
 export default Login;
