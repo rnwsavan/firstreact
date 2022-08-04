@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import Alert from '../Alert/Alert';
 
 function Header(props) {
     return (
@@ -65,6 +66,7 @@ function Header(props) {
                     <NavLink to={"/Form"} className="appointment-btn scrollto">
                         <span className="d-none d-md-inline">Form</span>
                     </NavLink>
+                    <Alert/>
                 </div>
             </header>
         </div>
