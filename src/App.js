@@ -15,13 +15,13 @@ import PrivateRoute from './Routes/PrivateRoute';
 import ListAppo from './container/Home/ListAppo';
 import Appoinment from './container/Home/Appoinment';
 import { Provider } from 'react-redux';
-import { configureStore } from './Redux/Store';
+import store, { configureStore } from './Redux/Store';
 import Layout from './component/Layout';
 import Counter from './container/Counter/Counter';
 import { SnackbarProvider } from 'notistack'; 
 
 function App() {
-  const store = configureStore();
+  // const store = configureStore();
   return (
     <>
       <SnackbarProvider maxSnack={3}>
