@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword, onAuthStateChanged, sendEmailVerification } from "firebase/auth";
+import { createUserWithEmailAndPassword, onAuthStateChanged, sendEmailVerification, signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase";
 
 
@@ -53,4 +53,36 @@ export const signupApi = (data)=>{
         });
 
     })
+}
+
+export const loginApi = (data)=>{
+  console.log(data);
+  return new Promise ((resolve , reject) =>{
+
+    signInWithEmailAndPassword(auth, data.email, data.password)
+      
+      .then((user) => {
+          if(user.user.emailVerified){
+            resolve({payload:user.user});
+          }
+          else{
+            reject({payload:"please verfity your email"});
+          }
+        // console.log(user);        
+      })
+      
+      .catch((error) => {
+        if(error.code.localeCompare("auth/wrong-password") === 0){
+          reject({payload: "wrong email or password"})
+        }
+        else if (error.code.localeCompare("auth/user-not-found") === 0){
+          reject({payload : "user not found"})
+        }
+        else{
+          reject({payload: error.code});
+        }
+        // console.log(error); 
+      });
+
+  })
 }

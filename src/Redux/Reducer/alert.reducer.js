@@ -5,7 +5,7 @@ const newvalue = {
     color : ""
 }
 export const alertReducer =(state=newvalue ,action) =>{
-    console.log(action.payload, action.type);
+    // console.log(action.payload, action.type);
     switch (action.type){
         
         case  ActionType.SET_ALERT: 

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import * as yup from 'yup';
 import { Form, Formik, useFormik } from 'formik';
 import { useDispatch } from 'react-redux';
-import { SignupUser } from '../../Redux/Action/auth.action';
+import { LoginUser, SignupUser } from '../../Redux/Action/auth.action';
 
 
 function Login(props) {
@@ -87,7 +87,8 @@ function Login(props) {
         validationSchema: schema,
         onSubmit: (values, { resetForm }) => {
             if (userType === "Login" && !reset) {
-                handletLogin(values)
+                // handletLogin(values)
+                dispatch(LoginUser(values))
             } else if (userType === "Signup" && !reset) {
                 // handleSignup(values)
                 dispatch(SignupUser(values))
