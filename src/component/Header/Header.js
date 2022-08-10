@@ -63,9 +63,15 @@ function Header(props) {
                     {/* <a href="#" className="appointment-btn scrollto">
                         <span className="d-none d-md-inline">Login/ Signup</span>
                     </a> */}
-                    <NavLink to={"/Login"} className="appointment-btn scrollto">
+                    {
+                        auth.user === null ?
+                        <NavLink to={"/Login"} className="appointment-btn scrollto">
                         <span className="d-none d-md-inline">Login/ Signup</span>
                     </NavLink>
+                    :<NavLink to={"/Login"} className="appointment-btn scrollto">
+                    <span className="d-none d-md-inline">Logout</span>
+                </NavLink>
+                    }
                     <NavLink to={"/Form"} className="appointment-btn scrollto">
                         <span className="d-none d-md-inline">Form</span>
                     </NavLink>

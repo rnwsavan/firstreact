@@ -3,6 +3,7 @@ import { loginApi, signupApi } from '../Comman/api/auth.api';
 import *as ActionTypes from '../../src/Redux/ActionType'
 import { EmailVerify, LoggedUser } from '../Redux/Action/auth.action';
 import { setAlert } from '../Redux/Action/alert.action';
+import { history } from '../history';
 
 function* fetchUser(action) {
    try {
@@ -23,6 +24,7 @@ function* loginForm(action){
       const user = yield call(loginApi, action.payload);
       yield put(setAlert({text:"Email Successfully" , color: 'success'}))
       yield put (LoggedUser(user))
+      history.push("/")
       console.log(user);
 
    }
