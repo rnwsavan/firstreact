@@ -65,6 +65,10 @@ export const ForgotAPI = (data) => {
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
+
+        if (error.code.localeCompare("auth/user-not-found") === 0) {
+          reject({ payload: "user not found" })
+        }
         
         reject({payload:errorCode})
 
