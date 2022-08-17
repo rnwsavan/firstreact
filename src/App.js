@@ -28,7 +28,7 @@ function App() {
       <SnackbarProvider maxSnack={3}>
         <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-          <Layout>
+          {/* <Layout> */}
             <Header />
             <Switch>
               <PublicRoute exact path={"/"} component={Home} />
@@ -43,7 +43,7 @@ function App() {
               <Route exact path={"/Form"} component={Form_1} />
             </Switch>
             <Footer />
-          </Layout>
+          {/* </Layout> */}
           </PersistGate>
         </Provider>
       </SnackbarProvider>

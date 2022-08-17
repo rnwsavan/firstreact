@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import * as yup from 'yup';
 import { Form, Formik, useFormik } from 'formik';
 import { useDispatch } from 'react-redux';
-import { LoginUser, SignupUser } from '../../Redux/Action/auth.action';
+import { ForgotPassword, GoogleLoginUser, LoginUser, SignupUser } from '../../Redux/Action/auth.action';
+
 
 
 function Login(props) {
@@ -37,10 +38,14 @@ function Login(props) {
 
 
     }
-
+    
+    const handleGoogleLogin=()=>{
+        dispatch(GoogleLoginUser())
+    }
 
     const handlepassword = (values) => {
-        alert(JSON.stringify(values.email));
+        // alert(JSON.stringify(values.email));
+        dispatch(ForgotPassword(values))
     }
 
     let Login = {
@@ -75,7 +80,7 @@ function Login(props) {
             password: ''
         }
     } else if (reset) {
-        console.log(reset);
+        // console.log(reset);
         schema = yup.object().shape(Password);
         initVal = {
             email: ''
@@ -92,8 +97,9 @@ function Login(props) {
             } else if (userType === "Signup" && !reset) {
                 // handleSignup(values)
                 dispatch(SignupUser(values))
-            } else if (reset) {
+            } else{
                 handlepassword(values)
+                // dispatch(ForgotPassword(values))
             }
             resetForm();
         }
@@ -189,6 +195,7 @@ function Login(props) {
                                                 <button type="submit">signup</button>
                                             </div>
                                 }
+                                <button className='google-icon' onClick={() => handleGoogleLogin()}><img width={25} height={25} src='assets/img/Google-Logo-PNG-Image.png'/> Google Login</button>
                                 {
                                     reset === true ?
                                         <div className='text-center mt-5'>

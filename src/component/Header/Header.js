@@ -1,11 +1,17 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import Alert from '../Alert/Alert';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import { LogoutUser } from '../../Redux/Action/auth.action';
 
 function Header(props) {
     let auth = useSelector(state=>state.auth)
-    console.log(auth);
+    // console.log(auth);
+
+    const dispatch = useDispatch();
+    const handleLogout =()=>{
+        dispatch(LogoutUser())
+    }
     return (
         <div className="main-header">
             <div id="topbar" className="d-flex align-items-center fixed-top">
@@ -68,7 +74,7 @@ function Header(props) {
                         <NavLink to={"/Login"} className="appointment-btn scrollto">
                         <span className="d-none d-md-inline">Login/ Signup</span>
                     </NavLink>
-                    :<NavLink to={"/Login"} className="appointment-btn scrollto">
+                    :<NavLink onClick={()=> handleLogout()} to={"/Login"} className="appointment-btn scrollto">
                     <span className="d-none d-md-inline">Logout</span>
                 </NavLink>
                     }
